@@ -76,7 +76,8 @@ Task::~Task() {
     //empty;
 }
 
-//methods
+/* methods */
+
 void Task::edit(const std::string& newTitle, const std::string& newDescription, const std::string& newDeadline, Task_Category newCategory, Task_Priority newPriority) 
 {
     m_title = newTitle;
@@ -122,7 +123,7 @@ std::string Task::statusToString(Task_Status status) const {
 }
 
 void Task::display_info() const {
-    std::cout << "Title: " << m_title << "\nDescription: " << m_description << "\nDeadline: " << m_deadline << "\nCategory: " << categoryToString(m_category) << "\nPriority: " << priorityToString(m_priority) << "\nStatus: " << statusToString(m_status) << std::endl;
+    std::cout << "Title: " << m_title << "\nDescription: " << m_description << "\nDeadline: " << m_deadline << "\nCategory: " << categoryToString(m_category) << "\nPriority: " << priorityToString(m_priority) << "\nStatus: " << statusToString(m_status) << "\nTask ID: " << m_task_id << std::endl;
 }
 
 size_t Task::get_task_id() const {
