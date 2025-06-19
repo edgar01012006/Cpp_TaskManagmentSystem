@@ -1,15 +1,16 @@
 #include "Task.hpp"
 
-size_t Task::m_task_id = 0;
+size_t Task::count_m_task_id = 0;
 
 Task::Task(const std::string& title, const std::string& description, const std::string& deadline, Task_Category category, Task_Priority priority) 
     : m_title { title }
     , m_description { description }
     , m_deadline { deadline }
     , m_category { category }
-    , m_priority { priority } 
+    , m_priority { priority }
+    , m_task_id { ++count_m_task_id }
 {
-    ++m_task_id;
+    //empty
 }
 
 Task::Task(const Task& rhs) 
@@ -102,6 +103,7 @@ std::string Task::categoryToString(Task_Category category) const {
         case Task_Category::STUDY: return "STUDY";
         case Task_Category::PERSONAL: return "PERSONAL";
     }
+    return "NONE";
 }
 
 std::string Task::priorityToString(Task_Priority priority) const {
@@ -112,6 +114,7 @@ std::string Task::priorityToString(Task_Priority priority) const {
         case Task_Priority::HIGH: return "HIGH";
         case Task_Priority::URGENT: return "URGENT";
     }
+    return "NONE";
 }
 std::string Task::statusToString(Task_Status status) const {
     switch (status) {
@@ -120,6 +123,7 @@ std::string Task::statusToString(Task_Status status) const {
         case Task_Status::IN_PROGRESS: return "IN_PROGRESS";
         case Task_Status::COMPLETED: return "COMPLETED";
     }
+    return "NONE";
 }
 
 void Task::display_info() const {

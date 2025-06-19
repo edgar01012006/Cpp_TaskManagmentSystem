@@ -28,8 +28,8 @@ enum class Task_Status {
 
 class Task {
 	private:
-		static size_t m_task_id; // check later
-		//std::string m_user_id; // user id why? what's the need for it?
+		static size_t count_m_task_id;
+		size_t m_task_id;
 		std::string m_title; 
 		std::string m_description;
 		std::string m_deadline; 
