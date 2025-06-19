@@ -1,21 +1,23 @@
 #include "User.hpp"
 
-size_t User::m_id = 0;
+size_t User::counter_m_id = 0;
 
 User::User(const std::string& username, const std::string& password) 
     : m_username { username }
     , m_password { password }
-    , m_tasks { nullptr }
+    , m_tasks()
+    , m_id { ++counter_m_id }
 {
-    ++m_id;
+    //empty;
 }
 
 User::User(const User& rhs, const std::string& username, const std::string& password) 
     : m_username { username }
     , m_password { password }
-    , m_tasks { rhs.m_tasks } // how does this work in background? check later
+    , m_tasks { rhs.m_tasks }
+    , m_id { ++counter_m_id }
 {
-    ++m_id;
+    //empty
 }
 
 User& User::operator=(const User& rhs) {
@@ -30,8 +32,9 @@ User::User(User&& rhs, const std::string& username, const std::string& password)
     : m_username { username }
     , m_password { password }
     , m_tasks { std::move(rhs.m_tasks) }
+    , m_id { ++counter_m_id }
 {
-    ++m_id;
+    //empty
 }
 
 User& User::operator=(User&& rhs) {
@@ -51,8 +54,8 @@ User::~User() {
 
 /* methods */
 
-void User::add_task(Task* task) {
-    m_tasks.emplace_back(task);
+void User::add_task(const Task& task) {
+    m_tasks.emplace_back(new Task(task));
 }
 
 void User::delete_task(size_t task_id) {
@@ -69,10 +72,19 @@ void User::edit_task(size_t task_id, const std::string& newTitle, const std::str
     for (int i = 0; i < m_tasks.size(); ++i) {
         if (m_tasks[i]->get_task_id() == task_id) {    
             m_tasks[i]->edit(newTitle, newDescription, newDeadline, newCategory, newPriority);
+            return;
         }
     }
 }
 
+void User::set_task_status(size_t task_id, Task_Status status) {
+    for (int i = 0; i < m_tasks.size(); ++i) {
+        if (m_tasks[i]->get_task_id() == task_id) {
+            m_tasks[i]->set_status(status);
+            return; 
+        }
+    }
+}
 
 void User::list_tasks() const {
     for (int i = 0; i < m_tasks.size(); ++i) {
@@ -95,6 +107,14 @@ std::string User::get_username() const {
 
 std::string User::get_password() const {
     return m_password;
+}
+
+size_t User::get_user_id() const {
+    return m_id;
+}
+
+bool User::chech_login() const {
+    return is_logged;
 }
 
 void User::login() {
