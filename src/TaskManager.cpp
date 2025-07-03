@@ -93,3 +93,29 @@ void TaskManager::list_tasks(size_t user_id) const {
         }
     }
 }
+
+/* tests */
+
+bool TaskManager::is_user(std::string name) const {
+    for (int i = 0; i < m_users.size(); ++i) {
+        if (m_users[i]->get_username() == name) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool TaskManager::is_logged(size_t user_id) const {
+    for (int i = 0; i < m_users.size(); ++i) {
+        if (m_users[i]->get_user_id() == user_id) {
+            if (m_users[i]->chech_login() == true) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+    return false;
+}
+
