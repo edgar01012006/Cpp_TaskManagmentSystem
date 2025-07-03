@@ -19,6 +19,10 @@ class TaskManager {
 		void edit_task(size_t user_id, size_t task_id, const std::string& newTitle, const std::string& newDescription, const std::string& newDeadline, Task_Category newCategory, Task_Priority newPriority);
 		void set_task_status(size_t user_id, size_t task_id, Task_Status status);
 		void list_tasks(size_t user_id) const;
+		//tests
+		bool is_user(std::string name) const;
+		bool is_logged(size_t user_id) const;
+
 };
 
 
